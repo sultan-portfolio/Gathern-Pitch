@@ -1,273 +1,809 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sultan Alqahtani — Proof of Value</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<title>Sultan Alqahtani — For Gathern</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --gathern-purple: #3C1053; /* درجة بنفسجي فخمة وداكنة تناسب الشركات */
-    --gold: #D4AF37;
-    --surface: #FDFCF8; /* أبيض كريمي مريح للعين (Cozy) */
-    --text-dark: #2A2A2A;
-    --text-light: #555555;
-    --white: #FFFFFF;
-  }
+:root {
+–purple: #6B3FA0;
+–purple-light: #8B5CC8;
+–purple-dim: #4A2A72;
+–purple-faint: rgba(107,63,160,0.12);
+–gold: #C9A84C;
+–gold-light: #E8C96A;
+–gold-faint: rgba(201,168,76,0.12);
+–dark: #080810;
+–surface: #0F0F1A;
+–surface2: #161625;
+–white: #F5F3FF;
+–white-dim: rgba(245,243,255,0.55);
+–white-faint: rgba(245,243,255,0.08);
+}
 
-  body {
-    background: #EAEAEA;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: var(--text-dark);
-    line-height: 1.6;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-  }
+html { scroll-behavior: smooth; }
 
-  .container {
-    max-width: 850px;
-    background: var(--surface);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-  }
+body {
+background: var(–dark);
+color: var(–white);
+font-family: ‘Montserrat’, sans-serif;
+overflow-x: hidden;
+cursor: default;
+}
 
-  /* ── HEADER ── */
-  .header {
-    padding: 50px;
-    background: var(--gathern-purple);
-    color: var(--white);
-    border-bottom: 5px solid var(--gold);
-  }
-  
-  .name {
-    font-size: 42px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 15px;
-    line-height: 1.1;
-  }
-  
-  .title-badge {
-    color: var(--gold);
-    font-weight: 500;
-  }
+/* ── NOISE TEXTURE ── */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 0;
+opacity: 0.4;
+}
 
-  .hook {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--gold);
-    margin-bottom: 15px;
-    font-style: italic;
-  }
+/* ── SCROLL PROGRESS ── */
+#progress {
+position: fixed;
+top: 0; left: 0;
+height: 2px;
+background: linear-gradient(90deg, var(–purple), var(–gold));
+z-index: 100;
+transition: width 0.1s linear;
+width: 0%;
+}
 
-  .intro-text {
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 95%;
-  }
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 50;
+padding: 18px 48px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: linear-gradient(to bottom, rgba(8,8,16,0.95), transparent);
+backdrop-filter: blur(0px);
+}
+.nav-logo {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 20px;
+letter-spacing: 0.12em;
+color: var(–white);
+}
+.nav-logo span { color: var(–gold); }
+.nav-badge {
+background: linear-gradient(135deg, var(–purple), var(–purple-dim));
+border: 1px solid rgba(107,63,160,0.6);
+color: var(–gold-light);
+font-size: 9px;
+font-weight: 700;
+letter-spacing: 0.16em;
+padding: 5px 14px;
+border-radius: 2px;
+text-transform: uppercase;
+}
 
-  /* ── SECTION LABELS ── */
-  .section-label {
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    color: var(--gathern-purple);
-    padding: 40px 50px 15px;
-    border-bottom: 1px solid rgba(60, 16, 83, 0.1);
-    margin: 0 50px;
-  }
+/* ── HERO ── */
+#hero {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 120px 24px 80px;
+position: relative;
+overflow: hidden;
+}
 
-  /* ── IMPACT GRID ── */
-  .impact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    padding: 30px 50px;
-  }
+.hero-glow {
+position: absolute;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+width: 600px; height: 600px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(107,63,160,0.18) 0%, transparent 70%);
+pointer-events: none;
+animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse {
+0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.7; }
+}
 
-  .impact-card {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 8px;
-    border-left: 4px solid var(--gold);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    transition: transform 0.2s ease;
-  }
+.hero-eyebrow {
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 24px;
+opacity: 0;
+animation: fadeUp 0.8s 0.2s forwards;
+}
 
-  .impact-card:hover {
-    transform: translateY(-3px);
-  }
+.hero-name {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(64px, 12vw, 110px);
+line-height: 0.92;
+letter-spacing: 0.04em;
+color: var(–white);
+margin-bottom: 6px;
+opacity: 0;
+animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero-name .highlight { color: var(–purple-light); }
 
-  .impact-title {
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--gathern-purple);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+.hero-cert {
+font-size: 13px;
+font-weight: 300;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 36px;
+opacity: 0;
+animation: fadeUp 0.8s 0.55s forwards;
+}
 
-  .impact-number {
-    font-size: 24px;
-    color: var(--gold);
-  }
+.hero-not-cv {
+display: inline-block;
+border: 1px solid rgba(201,168,76,0.3);
+padding: 14px 28px;
+margin-bottom: 36px;
+opacity: 0;
+animation: fadeUp 0.8s 0.7s forwards;
+position: relative;
+}
+.hero-not-cv::before, .hero-not-cv::after {
+content: ‘’;
+position: absolute;
+width: 8px; height: 8px;
+border-color: var(–gold);
+border-style: solid;
+}
+.hero-not-cv::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+.hero-not-cv::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
 
-  .impact-desc {
-    font-size: 14px;
-    color: var(--text-light);
-  }
+.hero-not-cv p {
+font-size: 11px;
+font-weight: 300;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–gold-light);
+}
+.hero-not-cv strong {
+display: block;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 0.25em;
+color: var(–gold);
+margin-top: 2px;
+}
 
-  /* ── WHY ME SECTION ── */
-  .why-me-section {
-    padding: 30px 50px 40px;
-  }
+.hero-tagline {
+font-size: clamp(14px, 2.2vw, 18px);
+font-weight: 300;
+font-style: italic;
+color: var(–white-dim);
+max-width: 600px;
+line-height: 1.7;
+opacity: 0;
+animation: fadeUp 0.8s 0.85s forwards;
+}
+.hero-tagline em {
+color: var(–white);
+font-style: normal;
+font-weight: 600;
+}
 
-  .why-item {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-    background: var(--white);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-  }
+.scroll-hint {
+position: absolute;
+bottom: 36px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+opacity: 0;
+animation: fadeUp 1s 1.4s forwards;
+}
+.scroll-hint span {
+font-size: 8px;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–white-dim);
+}
+.scroll-arrow {
+width: 1px;
+height: 32px;
+background: linear-gradient(to bottom, var(–gold), transparent);
+animation: scrollPulse 1.8s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+0%, 100% { opacity: 0.4; transform: scaleY(1); }
+50% { opacity: 1; transform: scaleY(1.1); }
+}
 
-  .arrow {
-    color: var(--gold);
-    font-weight: 800;
-    font-size: 18px;
-    margin-top: 2px;
-  }
+/* ── SECTIONS COMMON ── */
+section {
+padding: 100px 24px;
+max-width: 900px;
+margin: 0 auto;
+position: relative;
+}
 
-  .why-text h4 {
-    font-size: 15px;
-    color: var(--gathern-purple);
-    margin-bottom: 5px;
-  }
+.reveal {
+opacity: 0;
+transform: translateY(40px);
+transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+opacity: 1;
+transform: translateY(0);
+}
 
-  .why-text p {
-    font-size: 14px;
-    color: var(--text-light);
-  }
+/* ── SECTION LABEL ── */
+.sec-label {
+font-size: 9px;
+font-weight: 700;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(–purple-light);
+margin-bottom: 16px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.sec-label::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: linear-gradient(90deg, rgba(139,92,200,0.4), transparent);
+}
 
-  /* ── FOOTER ── */
-  .footer {
-    background: var(--gathern-purple);
-    padding: 35px 50px;
-    color: var(--white);
-    text-align: center;
-  }
+/* ── OPENING STATEMENT ── */
+#opening .statement {
+font-size: clamp(20px, 3.5vw, 30px);
+font-weight: 300;
+line-height: 1.6;
+color: var(–white-dim);
+}
+#opening .statement strong {
+color: var(–white);
+font-weight: 700;
+}
+#opening .statement .gold { color: var(–gold); font-weight: 600; }
 
-  .footer-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--gold);
-    margin-bottom: 15px;
-  }
+/* ── NUMBERS ── */
+#numbers {
+max-width: 1000px;
+padding-left: 24px;
+padding-right: 24px;
+}
+.numbers-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 2px;
+}
+.num-card {
+background: var(–surface);
+border: 1px solid var(–white-faint);
+padding: 36px 32px;
+position: relative;
+overflow: hidden;
+transition: border-color 0.3s, background 0.3s;
+}
+.num-card:hover {
+border-color: rgba(107,63,160,0.5);
+background: var(–surface2);
+}
+.num-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, var(–purple), var(–gold));
+transform: scaleX(0);
+transform-origin: left;
+transition: transform 0.4s ease;
+}
+.num-card:hover::before { transform: scaleX(1); }
 
-  .contact-details {
-    font-size: 14px;
-    font-weight: 300;
-    margin-bottom: 15px;
-  }
+.num-big {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(56px, 8vw, 84px);
+line-height: 1;
+letter-spacing: 0.02em;
+background: linear-gradient(135deg, var(–gold-light), var(–gold));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+.num-label {
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–white);
+margin: 8px 0 10px;
+}
+.num-desc {
+font-size: 12.5px;
+font-weight: 300;
+color: var(–white-dim);
+line-height: 1.65;
+}
+.num-desc .gathern-link {
+color: var(–purple-light);
+font-weight: 600;
+}
 
-  .contact-details span {
-    margin: 0 10px;
-    color: var(--gold);
-  }
+/* ── WHY GATHERN ── */
+.why-cards {
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+.why-card {
+background: var(–surface);
+border: 1px solid var(–white-faint);
+border-left: 3px solid var(–purple);
+padding: 28px 32px;
+display: grid;
+grid-template-columns: 48px 1fr;
+gap: 24px;
+align-items: start;
+transition: border-left-color 0.3s, background 0.3s;
+}
+.why-card:hover {
+border-left-color: var(–gold);
+background: var(–surface2);
+}
+.why-num {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 42px;
+line-height: 1;
+color: rgba(107,63,160,0.3);
+transition: color 0.3s;
+}
+.why-card:hover .why-num { color: var(–gold-faint); color: rgba(201,168,76,0.3); }
+.why-title {
+font-size: 14px;
+font-weight: 700;
+color: var(–white);
+margin-bottom: 10px;
+letter-spacing: 0.04em;
+}
+.why-body {
+font-size: 13px;
+font-weight: 300;
+color: var(–white-dim);
+line-height: 1.75;
+}
+.why-body strong { color: var(–white); font-weight: 600; }
+.why-body .tag {
+display: inline-block;
+background: var(–purple-faint);
+border: 1px solid rgba(107,63,160,0.3);
+color: var(–purple-light);
+font-size: 9.5px;
+font-weight: 700;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 2px 8px;
+border-radius: 2px;
+margin-top: 10px;
+}
 
-  .experience-tags {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
-  }
+/* ── OFFER ── */
+#offer .offer-box {
+background: var(–surface);
+border: 1px solid rgba(107,63,160,0.35);
+padding: 48px;
+position: relative;
+overflow: hidden;
+}
+#offer .offer-box::before {
+content: ‘’;
+position: absolute;
+top: -60px; right: -60px;
+width: 220px; height: 220px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(107,63,160,0.2) 0%, transparent 70%);
+pointer-events: none;
+}
+.offer-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 36px;
+letter-spacing: 0.06em;
+color: var(–white);
+margin-bottom: 8px;
+}
+.offer-sub {
+font-size: 11px;
+font-weight: 300;
+font-style: italic;
+color: var(–gold);
+letter-spacing: 0.1em;
+margin-bottom: 28px;
+}
+.offer-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 14px;
+margin-bottom: 32px;
+}
+.offer-list li {
+display: flex;
+align-items: flex-start;
+gap: 14px;
+font-size: 13.5px;
+font-weight: 300;
+color: var(–white-dim);
+line-height: 1.6;
+}
+.offer-list li::before {
+content: ‘→’;
+color: var(–gold);
+font-weight: 700;
+flex-shrink: 0;
+margin-top: 1px;
+}
+.offer-list li strong { color: var(–white); font-weight: 600; }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .impact-grid { grid-template-columns: 1fr; }
-    .header, .impact-grid, .why-me-section, .footer { padding: 30px 20px; }
-    .section-label { margin: 0 20px; padding: 30px 0 10px; }
-    .contact-details span { display: block; margin: 5px 0; color: transparent; }
-  }
+/* ── FOOTER / CTA ── */
+#cta {
+padding: 0 24px 100px;
+max-width: 900px;
+margin: 0 auto;
+}
+.cta-inner {
+border-top: 1px solid rgba(201,168,76,0.2);
+padding-top: 64px;
+display: grid;
+grid-template-columns: 1fr auto;
+gap: 48px;
+align-items: end;
+}
+.cta-line {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(28px, 5vw, 44px);
+line-height: 1.1;
+letter-spacing: 0.04em;
+color: var(–white);
+margin-bottom: 20px;
+}
+.cta-line span { color: var(–purple-light); }
+.cta-sub {
+font-size: 13px;
+font-weight: 300;
+color: var(–white-dim);
+line-height: 1.7;
+max-width: 440px;
+margin-bottom: 28px;
+}
+.contact-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.contact-list li {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 13px;
+font-weight: 600;
+color: var(–white-dim);
+letter-spacing: 0.04em;
+}
+.contact-list li::before {
+content: ‘’;
+width: 5px; height: 5px;
+border-radius: 50%;
+background: var(–gold);
+flex-shrink: 0;
+}
+
+.companies {
+text-align: right;
+}
+.companies-label {
+font-size: 8px;
+font-weight: 700;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–white-dim);
+margin-bottom: 12px;
+}
+.company-tags {
+display: flex;
+flex-direction: column;
+gap: 6px;
+align-items: flex-end;
+}
+.company-tag {
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–white);
+background: var(–white-faint);
+border: 1px solid rgba(255,255,255,0.08);
+padding: 5px 14px;
+border-radius: 2px;
+}
+
+.copyright {
+text-align: center;
+padding: 24px;
+font-size: 10px;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: rgba(245,243,255,0.2);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+nav { padding: 16px 20px; }
+section { padding: 72px 20px; }
+.numbers-grid { grid-template-columns: 1fr; }
+.num-card { padding: 28px 24px; }
+.why-card { grid-template-columns: 1fr; gap: 8px; padding: 24px 20px; }
+.why-num { font-size: 28px; }
+#offer .offer-box { padding: 28px 20px; }
+.cta-inner { grid-template-columns: 1fr; gap: 32px; }
+.companies { text-align: left; }
+.company-tags { align-items: flex-start; }
+}
 </style>
+
 </head>
 <body>
 
-<div class="container">
-  
-  <div class="header">
-    <div class="name">Sultan Alqahtani, <span class="title-badge">CXAD</span></div>
-    <div class="hook">"This is not a CV. It is a Proof of Value."</div>
-    <div class="intro-text">
-      I'm a CX professional with experience in Fintech, eCommerce, and Marketplaces who believes that in high-growth companies, results matter more than job titles. I didn't want to wait for (ATS) to find my CV. I chose to take initiative and come here because I'm confident that I can solve the exact challenges you're facing right now.
-    </div>
+<div id="progress"></div>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-logo">Sultan <span>A.</span></div>
+  <div class="nav-badge">CCXP® · For Gathern</div>
+</nav>
+
+<!-- ══ HERO ══ -->
+
+<section id="hero">
+  <div class="hero-glow"></div>
+
+  <div class="hero-eyebrow">Senior Customer Experience Specialist</div>
+
+  <h1 class="hero-name">Sultan<br><span class="highlight">Alqahtani</span></h1>
+
+  <div class="hero-cert">CCXP® · Certified Customer Experience Professional</div>
+
+  <div class="hero-not-cv">
+    <p>This is not a CV</p>
+    <strong>It is a Proof of Value</strong>
   </div>
 
-  <div class="section-label">The Impact (Real Numbers)</div>
-  <div class="impact-grid">
-    <div class="impact-card">
-      <div class="impact-title"><span class="impact-number">−17%</span> Customer Churn</div>
-      <p class="impact-desc">I fixed the feedback loops at Zid and stopped revenue leaks by keeping more customers on the platform.</p>
-    </div>
-    <div class="impact-card">
-      <div class="impact-title"><span class="impact-number">100%</span> Customer Activation</div>
-      <p class="impact-desc">I automated the onboarding for Alaan to ensure every new user moves from "Sign-up" to "Active" immediately.</p>
-    </div>
-    <div class="impact-card">
-      <div class="impact-title"><span class="impact-number">+18%</span> Customer Satisfaction</div>
-      <p class="impact-desc">I managed at Amazon thousands of claims and escalations, identifying & fixing experience defects to deliver resolution.</p>
-    </div>
-    <div class="impact-card">
-      <div class="impact-title"><span class="impact-number">−30%</span> Resolution Time</div>
-      <p class="impact-desc">I redesigned the support process at LG to solve problems faster, which saved costs and kept customers happy.</p>
-    </div>
-  </div>
+  <p class="hero-tagline">
+    I didn't wait for an ATS to find me.<br>
+    I came here because I'm confident I can solve <em>the exact challenges</em> Gathern is facing right now.
+  </p>
 
-  <div class="section-label">Why Me For Gathern?</div>
-  <div class="why-me-section">
-    <div class="why-item">
-      <div class="arrow">→</div>
-      <div class="why-text">
-        <h4>I understand human behavior</h4>
-        <p>My degree is in Psychology. I don't just build "steps" in an app; I build "trust." I will use this to turn Gathern's Host Advisory Board into a real engine for product growth.</p>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="arrow">→</div>
-      <div class="why-text">
-        <h4>I know the Saudi Marketplace</h4>
-        <p>Having scaled operations at Amazon, Alaan and Zid, I know how customers think. I am ready to design the loyalty and support packages that make them never leave Gathern.</p>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="arrow">→</div>
-      <div class="why-text">
-        <h4>I am a "Fixer"</h4>
-        <p>Whether it's managing complex claims or fixing broken service policies, I focus on the solution. I'm here to make sure your CX team isn't just a cost center, but a revenue engine.</p>
-      </div>
-    </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
   </div>
+</section>
 
-  <div class="footer">
-    <div class="footer-title">Let's talk.</div>
-    <div class="contact-details">
-      Phone: +966 59 906 1969 <span>|</span> Email: SultanFq.career@gmail.com
-    </div>
-    <div class="experience-tags">
-      Experience at: Amazon | Zid | Alaan | LG
-    </div>
-  </div>
+<!-- ══ OPENING ══ -->
 
+<section id="opening">
+  <div class="sec-label reveal">The Case</div>
+  <p class="statement reveal" style="transition-delay:0.1s">
+    Gathern operates in a unique space where <strong>trust is the product.</strong>
+    Hosts need to feel valued. Guests need to feel safe.
+    And when either side slips through the cracks —
+    <span class="gold">your platform loses before the booking is even made.</span>
+    I've spent 7 years solving exactly this kind of problem.
+    Not for small teams — for <strong>Amazon, Zid, Alaan, and LG.</strong>
+  </p>
+</section>
+
+<!-- ══ NUMBERS ══ -->
+
+<section id="numbers" style="max-width:1000px">
+  <div class="sec-label reveal">Real Numbers. Real Context.</div>
+  <div class="numbers-grid">
+
+```
+<div class="num-card reveal" style="transition-delay:0.05s">
+  <div class="num-big">−17%</div>
+  <div class="num-label">Host & Customer Churn</div>
+  <div class="num-desc">Fixed broken feedback loops at Zid and stopped revenue leaks — keeping more customers on the platform in 45 days. <span class="gathern-link">For Gathern: host retention = supply health.</span></div>
 </div>
+
+<div class="num-card reveal" style="transition-delay:0.1s">
+  <div class="num-big">100%</div>
+  <div class="num-label">Product Activation</div>
+  <div class="num-desc">Rebuilt Alaan's onboarding from a broken process to 100% activation at launch. <span class="gathern-link">For Gathern: every host who lists = potential revenue.</span></div>
+</div>
+
+<div class="num-card reveal" style="transition-delay:0.15s">
+  <div class="num-big">+18%</div>
+  <div class="num-label">Customer Satisfaction</div>
+  <div class="num-desc">Managed thousands of escalations at Amazon — identifying experience defects and fixing them at the root. <span class="gathern-link">For Gathern: one bad stay reviewed publicly = lost future bookings.</span></div>
+</div>
+
+<div class="num-card reveal" style="transition-delay:0.2s">
+  <div class="num-big">−30%</div>
+  <div class="num-label">Resolution Time</div>
+  <div class="num-desc">Redesigned LG's support process end-to-end — faster resolution, lower cost, higher trust. <span class="gathern-link">For Gathern: speed of resolution is speed of recovery.</span></div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ WHY GATHERN ══ -->
+
+<section id="why">
+  <div class="sec-label reveal">Why Gathern. Specifically.</div>
+  <div class="why-cards">
+
+```
+<div class="why-card reveal" style="transition-delay:0.05s">
+  <div class="why-num">01</div>
+  <div>
+    <div class="why-title">I understand the trust economy</div>
+    <div class="why-body">
+      My degree is in <strong>Society & Communication Psychology.</strong>
+      I don't design "support flows" — I design moments that make hosts feel heard and guests feel protected.
+      In a marketplace built on trust, that's not a soft skill. <strong>That's the product.</strong>
+      <br><span class="tag">Host Advisory Board · Guest Trust · Review Culture</span>
+    </div>
+  </div>
+</div>
+
+<div class="why-card reveal" style="transition-delay:0.1s">
+  <div class="why-num">02</div>
+  <div>
+    <div class="why-title">I know how Saudi users behave — not just data</div>
+    <div class="why-body">
+      I've spent 7+ years building operations <strong>for Saudi customers, in Arabic, from Riyadh.</strong>
+      I know where expectations break, where language matters, and where local context changes everything.
+      Gathern isn't a global platform with a Saudi toggle — it's Saudi-first. So am I.
+      <br><span class="tag">Arabic-first · KSA Behavior · Cultural Trust Signals</span>
+    </div>
+  </div>
+</div>
+
+<div class="why-card reveal" style="transition-delay:0.15s">
+  <div class="why-num">03</div>
+  <div>
+    <div class="why-title">I fix things — I don't just manage them</div>
+    <div class="why-body">
+      Every role I've taken was a contract with a defined problem to solve:
+      reduce churn, fix onboarding, rebuild escalation, launch a market.
+      <strong>I don't need warmup time.</strong> I map the friction on week one and start closing gaps on week two.
+      <br><span class="tag">Process Redesign · SLA Operations · VoC Systems</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ THE OFFER ══ -->
+
+<section id="offer">
+  <div class="sec-label reveal">What I Bring — Day One</div>
+  <div class="offer-box reveal" style="transition-delay:0.1s">
+    <div class="offer-title">The First 90 Days</div>
+    <div class="offer-sub">Not a plan. A commitment.</div>
+    <ul class="offer-list">
+      <li><strong>Week 1–2:</strong> Map the full host and guest journey — identify every friction point, drop-off, and silent complaint that's costing Gathern bookings.</li>
+      <li><strong>Week 3–4:</strong> Audit existing escalation and resolution flows. Rebuild the SLA framework with clear ownership and response standards.</li>
+      <li><strong>Month 2:</strong> Design and launch a structured VoC loop — host feedback, guest reviews, and internal data feeding into a single weekly insight report.</li>
+      <li><strong>Month 3:</strong> Deliver the first measurable outcomes: churn signals identified, activation rate improved, and a CX roadmap for the next quarter.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+
+<section id="cta" style="padding-bottom:0">
+  <div class="cta-inner reveal">
+    <div>
+      <div class="cta-line">Let's plug the leaks<br>in <span>Gathern's</span> growth.</div>
+      <p class="cta-sub">
+        I'm not applying to a job posting.<br>
+        I'm reaching out because I believe what I do will make a measurable difference to what you're building.
+      </p>
+      <ul class="contact-list">
+        <li>+966 59 906 1969</li>
+        <li>SultanFq.career@gmail.com</li>
+        <li>Riyadh, Saudi Arabia</li>
+      </ul>
+    </div>
+    <div class="companies">
+      <div class="companies-label">Proven at</div>
+      <div class="company-tags">
+        <span class="company-tag">Amazon</span>
+        <span class="company-tag">Zid</span>
+        <span class="company-tag">Alaan</span>
+        <span class="company-tag">LG Electronics</span>
+        <span class="company-tag">JD Logistics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="copyright">Sultan Alqahtani · CCXP® · Riyadh, Saudi Arabia · 2025</div>
+
+<script>
+  // Scroll progress
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    progress.style.width = pct + '%';
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Number counter animation
+  const numBigs = document.querySelectorAll('.num-big');
+  const numObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = true;
+        const el = entry.target;
+        const original = el.textContent.trim();
+        const hasPercent = original.includes('%');
+        const hasPlus = original.startsWith('+');
+        const hasMinus = original.startsWith('−');
+        const numStr = original.replace(/[^0-9]/g, '');
+        const target = parseInt(numStr);
+        if (isNaN(target)) return;
+        let start = 0;
+        const duration = 1200;
+        const startTime = performance.now();
+        const animate = (now) => {
+          const elapsed = now - startTime;
+          const prog = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - prog, 3);
+          const current = Math.round(eased * target);
+          const prefix = hasPlus ? '+' : hasMinus ? '−' : '';
+          el.textContent = prefix + current + (hasPercent ? '%' : '');
+          if (prog < 1) requestAnimationFrame(animate);
+          else el.textContent = original;
+        };
+        requestAnimationFrame(animate);
+      }
+    });
+  }, { threshold: 0.5 });
+  numBigs.forEach(el => numObserver.observe(el));
+</script>
 
 </body>
 </html>
